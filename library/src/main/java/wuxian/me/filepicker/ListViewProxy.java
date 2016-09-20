@@ -24,7 +24,7 @@ public class ListViewProxy implements IListView {
 
     private ListView mListView;
     private FileAdapter mAdapter;
-    private MultiFilePickerImpl mPicker;
+    private FilePickerImpl mPicker;
 
     private boolean mInMultiSelectMode = false;
 
@@ -32,7 +32,7 @@ public class ListViewProxy implements IListView {
     private List<HistoryEntry> mHistories = new ArrayList<>();
     private HashMap<String, FileItem> mSelectedFiles = new HashMap<>();
 
-    public ListViewProxy(MultiFilePickerImpl picker, ListView listView, Context context) {
+    public ListViewProxy(FilePickerImpl picker, ListView listView, Context context) {
         if (listView == null) {
             throw new IllegalArgumentException("listview can't be null");
         }
@@ -55,7 +55,7 @@ public class ListViewProxy implements IListView {
     }
 
     @Override
-    public boolean inMultiSelectMode() {
+    public boolean isInMultiSelectMode() {
         return mInMultiSelectMode;
     }
 
@@ -104,9 +104,9 @@ public class ListViewProxy implements IListView {
                     mHistories.add(he);
 
                     //Todo 滑动处理
-                    MultiFilePickerImpl.State state = mPicker.getFileState(file);
+                    FilePickerImpl.State state = mPicker.getFileState(file);
 
-                    if (state == MultiFilePickerImpl.State.STATE_DIR_NORMAL) {
+                    if (state == FilePickerImpl.State.STATE_DIR_NORMAL) {
                         mCurrentDir = file;
                         mPicker.listFilesUnder(file);
                     } else {
@@ -115,8 +115,8 @@ public class ListViewProxy implements IListView {
 
                     //listView.setSelection(0);
                 } else {
-                    MultiFilePickerImpl.State state = mPicker.getFileState(file);
-                    if (state == MultiFilePickerImpl.State.STATE_FILE_NORMAL) {
+                    FilePickerImpl.State state = mPicker.getFileState(file);
+                    if (state == FilePickerImpl.State.STATE_FILE_NORMAL) {
                         if (mInMultiSelectMode) {
                             if (mSelectedFiles.containsKey(file.toString())) {
                                 mSelectedFiles.remove(file.toString());
@@ -124,13 +124,13 @@ public class ListViewProxy implements IListView {
                                 mSelectedFiles.put(file.toString(), item);
                             }
                             if (mSelectedFiles.isEmpty()) {
-                                mPicker.onFilesSelected(new ArrayList<String>());
-                                mPicker.onQuitMultiSelectMode();
+                                mPicker.filesSelected(new ArrayList<String>());
+                                mPicker.quitMultiSelectMode();
                                 mInMultiSelectMode = false;
                             } else {
                                 List<String> files = new ArrayList<String>();
                                 files.addAll(mSelectedFiles.keySet());
-                                mPicker.onFilesSelected(files);
+                                mPicker.filesSelected(files);
                             }
 
                             if (view instanceof DocumentView) {
@@ -140,7 +140,7 @@ public class ListViewProxy implements IListView {
                             mSelectedFiles.put(file.toString(), item);
                             List<String> files = new ArrayList<String>();
                             files.addAll(mSelectedFiles.keySet());
-                            mPicker.onFilesSelected(files);
+                            mPicker.filesSelected(files);
                         }
                     } else {
                         //Todo:access error,length 0
@@ -169,11 +169,11 @@ public class ListViewProxy implements IListView {
                     return false;
                 }
 
-                MultiFilePickerImpl.State state = mPicker.getFileState(file);
+                FilePickerImpl.State state = mPicker.getFileState(file);
 
-                if (state == MultiFilePickerImpl.State.STATE_FILE_NORMAL) {
+                if (state == FilePickerImpl.State.STATE_FILE_NORMAL) {
                     mInMultiSelectMode = true;
-                    mPicker.onEnterMuitiSelectMode();
+                    mPicker.enterMuitiSelectMode();
 
                     mSelectedFiles.put(file.toString(), item);
                     if (view instanceof DocumentView) {
@@ -182,7 +182,7 @@ public class ListViewProxy implements IListView {
 
                     List<String> files = new ArrayList<String>();
                     files.addAll(mSelectedFiles.keySet());
-                    mPicker.onFilesSelected(files);
+                    mPicker.filesSelected(files);
 
                     return true;
                 } else {

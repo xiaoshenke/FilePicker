@@ -18,13 +18,11 @@ import java.util.List;
  * 3 不关心进入文件夹可能抛出的异常 ???
  */
 
-public interface IMultiFilePicker {
+public interface IFilePicker {
 
     void onEnterMuitiSelectMode();
 
     void onQuitMultiSelectMode();
-
-    boolean inMultiSelectMode();
 
     void onFilesSelected(List<String> files);  //每次有file被选中的时候 可能需要刷新一下ui
 

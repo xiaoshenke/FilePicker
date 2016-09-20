@@ -26,7 +26,7 @@ public class RecyclerViewProxy implements IListView {
     }
 
     @Override
-    public boolean inMultiSelectMode() {
+    public boolean isInMultiSelectMode() {
         return false;
     }
 }

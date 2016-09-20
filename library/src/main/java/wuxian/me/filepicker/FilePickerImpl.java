@@ -27,7 +27,7 @@ import wuxian.me.filepicker.view.TeleAndroidUtils;
  *
  */
 
-public class MultiFilePickerImpl implements IMultiFilePicker {
+public class FilePickerImpl {
 
     public enum State {
         STATE_ERROR_UNKNOW,
@@ -41,9 +41,10 @@ public class MultiFilePickerImpl implements IMultiFilePicker {
         STATE_FILE_ILLEGAL_LENGTH,
     }
 
-    private IMultiFilePicker mPicker;
+    private IFilePicker mPicker;  //传入的回调
+    //因为FilePickerImpl只封装了浏览的功能 比如说该调用onFileSelected时就调用真正的回调函数
 
-    public MultiFilePickerImpl(IMultiFilePicker picker) {
+    public FilePickerImpl(IFilePicker picker) {
         mPicker = picker;
     }
 
@@ -265,29 +266,28 @@ public class MultiFilePickerImpl implements IMultiFilePicker {
 
     }
 
-    @Override
-    public void onEnterMuitiSelectMode() {
+
+    public void enterMuitiSelectMode() {
         if (mPicker != null) {
             mPicker.onEnterMuitiSelectMode();
         }
 
     }
 
-    @Override
-    public void onQuitMultiSelectMode() {
+
+    public void quitMultiSelectMode() {
         if (mPicker != null) {
             mPicker.onQuitMultiSelectMode();
         }
 
     }
 
-    @Override
     public boolean inMultiSelectMode() {
-        return mListView.inMultiSelectMode();
+        return mListView.isInMultiSelectMode();
     }
 
-    @Override
-    public void onFilesSelected(List<String> files) {
+
+    public void filesSelected(List<String> files) {
         if (mPicker != null) {
             mPicker.onFilesSelected(files);
         }
@@ -347,7 +347,7 @@ public class MultiFilePickerImpl implements IMultiFilePicker {
     public void onFileState(State state) {
         //Todo
         if (mPicker != null) {
-            // mPicker.onFilesSelected(state);
+            // mPicker.filesSelected(state);
         }
     }
 

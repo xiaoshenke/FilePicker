@@ -8,16 +8,16 @@ import android.widget.Toast;
 import java.util.List;
 
 import wuxian.me.filepicker.IListView;
-import wuxian.me.filepicker.IMultiFilePicker;
+import wuxian.me.filepicker.IFilePicker;
 import wuxian.me.filepicker.ListViewProxy;
-import wuxian.me.filepicker.MultiFilePickerImpl;
+import wuxian.me.filepicker.FilePickerImpl;
 
 /**
  * Created by wuxian on 20/9/2016.
  */
 
-public class FilePickerActivity extends AppCompatActivity implements IMultiFilePicker {
-    MultiFilePickerImpl mPicker = new MultiFilePickerImpl(this);
+public class FilePickerActivity extends AppCompatActivity implements IFilePicker {
+    FilePickerImpl mPicker = new FilePickerImpl(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +47,6 @@ public class FilePickerActivity extends AppCompatActivity implements IMultiFileP
     @Override
     public void onQuitMultiSelectMode() {
         Toast.makeText(this,"aha,you have quit multiseletmode!",Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public boolean inMultiSelectMode() {
-        return mPicker.inMultiSelectMode();
     }
 
     @Override
