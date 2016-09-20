@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_file_icon"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="12dp"
+        app:placeholderImage="@mipmap/media_doc_blue"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+        -->
+
+    <TextView
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="22dp"
+        android:textSize="14sp"
+        tools:text=".."
+        android:textColor="@android:color/black"
+        android:lines="1"
+        android:singleLine="true"
+        android:id="@+id/tv_file_ext"
+        android:gravity="center"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:ellipsize="end"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="8dp"
+        android:textSize="16sp"
+        tools:text="this is a test"
+        android:lines="1"
+        android:singleLine="true"
+        android:id="@+id/tv_file_name"
+        android:gravity="left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:ellipsize="end"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="8dp"
+        android:textSize="14sp"
+        tools:text="this is a date"
+        android:lines="1"
+        android:singleLine="true"
+        android:id="@+id/tv_file_date"
+        android:gravity="left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        tools:src="@mipmap/media_doc_pause"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/iv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <wuxian.me.filepicker.view.CheckBox
+        android:id="@+id/checkbox"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp" />
+
+</RelativeLayout>
