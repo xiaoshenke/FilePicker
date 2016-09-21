@@ -3,16 +3,20 @@ package wuxian.me.filepicker;
 import android.annotation.SuppressLint;
 import android.os.Environment;
 import android.os.StatFs;
+import android.view.View;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import wuxian.me.filepicker.view.DocumentView;
 import wuxian.me.filepicker.view.FileItem;
 import wuxian.me.filepicker.view.Utils;
 
@@ -44,13 +48,154 @@ public class FilePickerImpl {
     private IFilePickerListener mListener;  //传入的回调
     private IListView mListView;
 
-    public FilePickerImpl(IFilePickerListener listener) {
+    private File mCurrentDir = null;
+    private List<HistoryEntry> mHistories = new ArrayList<>();
+    private HashMap<String, FileItem> mSelectedFiles = new HashMap<>();
+    private boolean mInMultiSelectMode = false;
+
+    public FilePickerImpl(IListView listView, IFilePickerListener listener) {
+        mListView = listView;
         mListener = listener;
+
+        mListView.setItemClickListener(getItemClickListener());
+
     }
 
-    public void setListView(IListView listView){
-        mListView = listView;
+    boolean isInMultiSelectMode() {
+        return mInMultiSelectMode;
     }
+
+    private IListView.ItemClickListener getItemClickListener() {
+
+        return new IListView.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                List<FileItem> items = mListView.getFileItems();
+                if (items == null || items.size() == 0) {
+                    return;
+                }
+
+                if (position < 0 || position >= items.size()) {
+                    return;
+                }
+
+                FileItem item = items.get(position);
+                File file = item.file;
+                if (file == null) { //出现空的情况:比如当前是gallery的item --> 返回上一级
+                    if (mHistories.isEmpty()) {
+                        mCurrentDir = null;
+                        listRootFiles();
+                        return;
+                    }
+                    HistoryEntry he = mHistories.remove(mHistories.size() - 1);
+                    //Utils.clearDrawableAnimation(listView);
+                    if (he.dir != null) {
+                        mCurrentDir = he.dir;
+                        listFilesUnder(he.dir);
+                    } else {
+                        mCurrentDir = null;
+                        listRootFiles();  //为null说明在root页面
+                    }
+
+                    //listView.setSelectionFromTop(he.scrollItem, he.scrollOffset);
+
+                } else if (file.isDirectory()) {
+                    if (isInMultiSelectMode()) {  //多选模式选中文件夹的处理?
+                        return;
+                    }
+
+                    HistoryEntry he = new HistoryEntry();
+                    //he.scrollItem = listView.getFirstVisiblePosition();
+                    //he.scrollOffset = listView.getChildAt(0).getTop();
+                    he.dir = mCurrentDir;
+                    //he.title = actionBar.getTitle();
+                    mHistories.add(he);
+
+                    FilePickerImpl.State state = getFileState(file);
+
+                    if (state == FilePickerImpl.State.STATE_DIR_NORMAL) {
+                        mCurrentDir = file;
+                        listFilesUnder(file);
+                    } else {
+                    }
+
+                    //listView.setSelection(0);
+                } else {
+                    FilePickerImpl.State state = getFileState(file);
+                    if (state == FilePickerImpl.State.STATE_FILE_NORMAL) {
+                        if (mInMultiSelectMode) {
+                            if (mSelectedFiles.containsKey(file.toString())) {
+                                mSelectedFiles.remove(file.toString());
+                            } else {
+                                mSelectedFiles.put(file.toString(), item);
+                            }
+                            if (mSelectedFiles.isEmpty()) {
+                                filesSelected(new ArrayList<String>());
+                                quitMultiSelectMode();
+                                mInMultiSelectMode = false;
+                            } else {
+                                List<String> files = new ArrayList<String>();
+                                files.addAll(mSelectedFiles.keySet());
+                                filesSelected(files);
+                            }
+
+                            if (view instanceof DocumentView) {
+                                ((DocumentView) view).setChecked(mSelectedFiles.containsKey(item.file.toString()), true);
+                            }
+                        } else {
+                            mSelectedFiles.put(file.toString(), item);
+                            List<String> files = new ArrayList<String>();
+                            files.addAll(mSelectedFiles.keySet());
+                            filesSelected(files);
+                        }
+                    } else {
+                    }
+                }
+
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, int position) {
+                List<FileItem> items = mListView.getFileItems();
+
+                if (position < 0 || position >= items.size()) {
+                    return false;
+                }
+
+                if (mInMultiSelectMode) {  //处于长按状态时进行长按忽略这个动作
+                    return false;
+                }
+
+                FileItem item = items.get(position);
+                File file = item.file;
+
+                if (file == null || file.isDirectory()) {  //文件夹不允许选择
+                    return false;
+                }
+
+                FilePickerImpl.State state = getFileState(file);
+
+                if (state == FilePickerImpl.State.STATE_FILE_NORMAL) {
+                    mInMultiSelectMode = true;
+                    enterMuitiSelectMode();
+
+                    mSelectedFiles.put(file.toString(), item);
+                    if (view instanceof DocumentView) {
+                        ((DocumentView) view).setChecked(true, true);
+                    }
+
+                    List<String> files = new ArrayList<String>();
+                    files.addAll(mSelectedFiles.keySet());
+                    filesSelected(files);
+
+                    return true;
+                } else {
+                }
+                return true;
+            }
+        };
+    }
+
 
     private String getSubtitleOfPath(String path) {
         try {
@@ -332,6 +477,15 @@ public class FilePickerImpl {
         if (mListener != null) {
             // mListener.filesSelected(state);
         }
+    }
+
+    /**
+     * 用于返回上一级
+     */
+    private class HistoryEntry {
+        int scrollItem, scrollOffset;
+        File dir;
+        String title;
     }
 
 }

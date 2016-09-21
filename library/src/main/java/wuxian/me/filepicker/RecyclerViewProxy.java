@@ -28,7 +28,13 @@ public class RecyclerViewProxy implements IListView {
     }
 
     @Override
-    public boolean isInMultiSelectMode() {
-        return false;
+    public void setItemClickListener(ItemClickListener listener) {
+
     }
+
+    @Override
+    public List<FileItem> getFileItems() {
+        return null;
+    }
+
 }

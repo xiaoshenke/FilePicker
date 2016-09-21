@@ -1,5 +1,7 @@
 package wuxian.me.filepicker;
 
+import android.view.View;
+
 import java.util.List;
 
 import wuxian.me.filepicker.view.FileItem;
@@ -26,5 +28,13 @@ public interface IListView {
 
     void notifyDatasetChanged();
 
-    boolean isInMultiSelectMode();
+    void setItemClickListener(ItemClickListener listener);
+
+    List<FileItem> getFileItems();
+
+    interface ItemClickListener {
+        void onItemClick(View v, int pos);
+
+        boolean onItemLongClick(View v, int pos);
+    }
 }
