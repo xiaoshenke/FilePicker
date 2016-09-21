@@ -12,6 +12,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -138,8 +139,18 @@ public class DocumentView extends FrameLayout {
         fileSubTitle.setText(item.subtitle);
 
         //Todo:设置占位图及图片
+        if(item.iconRes != 0){
+            ;
+        }else{
+            ;
+        }
 
-
+        if(!TextUtils.isEmpty(item.type)){
+            fileType.setText(item.type);
+            fileType.setVisibility(VISIBLE);
+        }else{
+            fileType.setVisibility(INVISIBLE);
+        }
 
     }
 

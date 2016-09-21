@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--
+
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/iv_file_icon"
         android:layout_marginLeft="12dp"
@@ -15,7 +15,7 @@
         app:placeholderImage="@mipmap/media_doc_blue"
         android:layout_width="40dp"
         android:layout_height="40dp" />
-        -->
+
 
     <TextView
         android:id="@+id/tv_file_type"

@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 import java.util.List;
 
 import wuxian.me.filepicker.IListView;
@@ -22,6 +24,8 @@ public class FilePickerActivity extends AppCompatActivity implements IFilePicker
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_filepicker);
 
         initView();
