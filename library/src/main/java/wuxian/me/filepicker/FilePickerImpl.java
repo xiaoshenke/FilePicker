@@ -83,10 +83,10 @@ public class FilePickerImpl {
             FileItem item = new FileItem();
             if (Environment.isExternalStorageRemovable()) {
                 item.title = "SdCard";
-                item.icon = R.mipmap.ic_external_storage;
+                item.iconRes = R.mipmap.ic_external_storage;
             } else {
                 item.title = "InternalStorage";
-                item.icon = R.mipmap.ic_storage;
+                item.iconRes = R.mipmap.ic_storage;
             }
 
             String defaultPath = Environment.getExternalStorageDirectory().getPath();
@@ -127,7 +127,7 @@ public class FilePickerImpl {
                                 } else {
                                     item.title = "ExternalStorage";
                                 }
-                                item.icon = R.mipmap.ic_external_storage;
+                                item.iconRes = R.mipmap.ic_external_storage;
                                 item.subtitle = getSubtitleOfPath(path);
                                 item.file = new File(path);
                                 items.add(item);
@@ -152,7 +152,7 @@ public class FilePickerImpl {
         FileItem fs = new FileItem();
         fs.title = "/";
         fs.subtitle = "SystemRoot";
-        fs.icon = R.mipmap.ic_directory;
+        fs.iconRes = R.mipmap.ic_directory;
         fs.file = new File("/");
         items.add(fs);
 
@@ -205,17 +205,17 @@ public class FilePickerImpl {
                 item.title = file.getName();
                 item.file = file;
                 if (file.isDirectory()) {
-                    item.icon = R.mipmap.ic_directory;
+                    item.iconRes = R.mipmap.ic_directory;
                     item.subtitle = "Folder";
                 } else {
                     String fname = file.getName();
                     String[] sp = fname.split("\\.");
-                    item.ext = sp.length > 1 ? sp[sp.length - 1] : "?";
+                    item.type = sp.length > 1 ? sp[sp.length - 1] : "?";
                     item.subtitle = Utils.formatFileSize(file.length());
                     fname = fname.toLowerCase();
-                    item.icon = 0;
+                    item.iconRes = 0;
                     if (fname.endsWith(".jpg") || fname.endsWith(".png") || fname.endsWith(".gif") || fname.endsWith(".jpeg")) {
-                        item.thumb = file;
+                        item.thumbFile = file;
                     }
                 }
                 items.add(item);
@@ -236,7 +236,7 @@ public class FilePickerImpl {
             item.subtitle = "Folder";
         }*/
 
-            item.icon = R.mipmap.ic_directory;
+            item.iconRes = R.mipmap.ic_directory;
             item.file = null;
             items.add(0, item);
 
@@ -337,15 +337,14 @@ public class FilePickerImpl {
      * data of Documentview viewHolder --> R.layout.view_document
      */
     public static class FileItem {
-        public int icon;               //resourceId of icon ,for eg. R.mipmap.ic_directory
-        public File thumb;             //url of file --> 根据file的url拿到thumbnail
+        public int iconRes;               //resourceId of iconRes ,for eg. R.mipmap.ic_directory
+        public String type = "";          //type for eg. word,pdf,..
+        public File thumbFile;             //url of file --> 根据file的url拿到thumbnail
+
+        public String title;
+        public String subtitle = "";
 
         public File file;              //real file
-
-        public String title;           //名字
-        public String subtitle = "";   //???
-        public String ext = "";        //???
-
     }
 
 }

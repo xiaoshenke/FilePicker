@@ -254,13 +254,13 @@ public class ListViewProxy implements IListView {
             }
             DocumentView docView = (DocumentView) convertView;
             FileItem item = mFileItems.get(position);
-            if (item.icon != 0) {
-                ((DocumentView) convertView).setTextAndValueAndTypeAndThumb(item.title, item.subtitle, null, null, item.icon);
+            if (item.iconRes != 0) {
+                ((DocumentView) convertView).setTextAndValueAndTypeAndThumb(item.title, item.subtitle, null, null, item.iconRes);
                 ((DocumentView) convertView).setFileItem(item);
             } else {
                 ((DocumentView) convertView).setFileItem(item);
-                String type = item.ext.toUpperCase().substring(0, Math.min(item.ext.length(), 4));
-                ((DocumentView) convertView).setTextAndValueAndTypeAndThumb(item.title, item.subtitle, type, item.thumb, 0);
+                String type = item.type.toUpperCase().substring(0, Math.min(item.type.length(), 4));
+                ((DocumentView) convertView).setTextAndValueAndTypeAndThumb(item.title, item.subtitle, type, item.thumbFile, 0);
             }
             if (item.file != null) {
                 docView.setChecked(mSelectedFiles.containsKey(item.file.toString()), false);

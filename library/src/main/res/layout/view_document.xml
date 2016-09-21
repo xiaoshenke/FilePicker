@@ -18,60 +18,49 @@
         -->
 
     <TextView
+        android:id="@+id/tv_file_type"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="22dp"
         android:textSize="14sp"
         tools:text=".."
         android:textColor="@android:color/black"
-        android:lines="1"
+        android:ellipsize="end"
         android:singleLine="true"
-        android:id="@+id/tv_file_ext"
-        android:gravity="center"
-        android:layout_width="32dp"
-        android:layout_height="wrap_content" />
+        android:gravity="center" />
 
     <TextView
-        android:ellipsize="end"
+        android:id="@+id/tv_file_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="72dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="8dp"
         android:textSize="16sp"
         tools:text="this is a test"
-        android:lines="1"
         android:singleLine="true"
-        android:id="@+id/tv_file_name"
-        android:gravity="left"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:ellipsize="end"
+        android:gravity="left" />
 
     <TextView
-        android:ellipsize="end"
+        android:id="@+id/tv_file_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="72dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="8dp"
         android:textSize="14sp"
         tools:text="this is a date"
-        android:lines="1"
+        android:ellipsize="end"
         android:singleLine="true"
-        android:id="@+id/tv_file_date"
-        android:gravity="left"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <ImageView
-        tools:src="@mipmap/media_doc_pause"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginRight="8dp"
-        android:id="@+id/iv_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:gravity="left" />
 
     <wuxian.me.filepicker.view.CheckBox
         android:id="@+id/checkbox"
-        android:layout_marginLeft="34dp"
-        android:layout_marginTop="30dp"
         android:layout_width="22dp"
-        android:layout_height="22dp" />
+        android:layout_height="22dp"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="30dp" />
 
 </RelativeLayout>

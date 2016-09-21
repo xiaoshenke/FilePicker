@@ -16,7 +16,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import wuxian.me.filepicker.FilePickerImpl.FileItem;
@@ -25,18 +24,10 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.io.File;
 import wuxian.me.filepicker.R;
 
+/**
+ * DocumentView --> SharedDocumentCell
+ */
 public class DocumentView extends FrameLayout {
-    private View mView;
-    private SimpleDraweeView mFileIcon;
-    private TextView mFileName;
-    private TextView mFileExt;
-    private TextView mFileDate;
-    private ImageView mFileStatus;
-    private CheckBox mCheckbox;
-    private Context context;
-
-    private PipelineDraweeControllerBuilder mControllerBuilder;
-
     private static Paint mPaint;
     private int icons[] = {
             R.mipmap.media_doc_blue,
@@ -45,11 +36,22 @@ public class DocumentView extends FrameLayout {
             R.mipmap.media_doc_yellow
     };
 
-    private boolean mNeedDivider;
+    private View mView;
+    private Context mContext;
 
-    public DocumentView(Context context) {
-        super(context);
-        this.context = context;
+    private PipelineDraweeControllerBuilder mControllerBuilder;
+    private SimpleDraweeView fileIcon;  //图标 可能从本地load 也可能是一个网络url
+    private TextView fileType;          //如果该file是一个已知类型比如pdf word,显示该类型
+
+    private TextView fileTitle;
+    private TextView fileSubTitle;
+    private CheckBox checkbox;
+
+    private boolean needDivider;
+
+    public DocumentView(Context mContext) {
+        super(mContext);
+        this.mContext = mContext;
 
         if (mPaint == null) {
             mPaint = new Paint();
@@ -57,10 +59,17 @@ public class DocumentView extends FrameLayout {
             mPaint.setStrokeWidth(1);
         }
 
-        mView = LayoutInflater.from(context).inflate(R.layout.view_document, null, false);
+        mView = LayoutInflater.from(mContext).inflate(R.layout.view_document, null, false);
 
-        mFileExt = (TextView) mView.findViewById(R.id.tv_file_ext);
-        //mFileIcon = (SimpleDraweeView) mView.findViewById(R.id.iv_file_icon);
+        fileType = (TextView) mView.findViewById(R.id.tv_file_type);
+        fileTitle = (TextView) mView.findViewById(R.id.tv_file_title);
+        fileSubTitle = (TextView) mView.findViewById(R.id.tv_file_subtitle);
+
+        checkbox = (CheckBox) mView.findViewById(R.id.checkbox);
+        checkbox.setDrawableResource(R.mipmap.ic_round_check);
+        checkbox.setVisibility(GONE);
+
+        //fileIcon = (SimpleDraweeView) mView.findViewById(R.id.iv_file_icon);
 
         /*
         mControllerBuilder = Fresco.newDraweeControllerBuilder().setControllerListener(new ControllerListener<ImageInfo>() {
@@ -70,7 +79,7 @@ public class DocumentView extends FrameLayout {
 
             @Override
             public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                mFileExt.setVisibility(INVISIBLE);
+                fileType.setVisibility(INVISIBLE);
             }
 
             @Override
@@ -91,16 +100,7 @@ public class DocumentView extends FrameLayout {
         });
         */
 
-        mFileName = (TextView) mView.findViewById(R.id.tv_file_name);
-        mFileStatus = (ImageView) mView.findViewById(R.id.iv_status);
-        mFileStatus.setVisibility(INVISIBLE);
-        mFileDate = (TextView) mView.findViewById(R.id.tv_file_date);
-
-        mCheckbox = (CheckBox) mView.findViewById(R.id.checkbox);
-        mCheckbox.setDrawableResource(R.mipmap.round_check2);
-        mCheckbox.setVisibility(GONE);
-
-        addView(mView, LayoutHelper.createFrame(context,LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.TOP, 0, 0, 0, 0));
+        addView(mView, LayoutHelper.createFrame(mContext, LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.TOP, 0, 0, 0, 0));
     }
 
     private int getThumbForNameOrMime(String name, String mime) {
@@ -134,32 +134,38 @@ public class DocumentView extends FrameLayout {
             return;
         }
 
+        fileTitle.setText(item.title);
+        fileSubTitle.setText(item.subtitle);
+
+        //Todo:设置占位图及图片
+
+
 
     }
 
     public void setTextAndValueAndTypeAndThumb(String text, String value, String type, File url, int resourceId) {
-        mFileName.setText(text);
-        mFileDate.setText(value);
+        fileTitle.setText(text);
+        fileSubTitle.setText(value);
 
         if (type != null) {
-            mFileExt.setVisibility(VISIBLE);
-            mFileExt.setText(type);
+            fileType.setVisibility(VISIBLE);
+            fileType.setText(type);
         } else {
-            mFileExt.setVisibility(INVISIBLE);
+            fileType.setVisibility(INVISIBLE);
         }
 
         if (resourceId == 0) {  //设置placeholder
-            //mFileIcon.setImageDrawable(context.getResources().getDrawable(getThumbForNameOrMime(text, type)));
-            //mFileIcon.getHierarchy().setPlaceholderImage(getThumbForNameOrMime(text, type));
+            //fileIcon.setImageDrawable(mContext.getResources().getDrawable(getThumbForNameOrMime(text, type)));
+            //fileIcon.getHierarchy().setPlaceholderImage(getThumbForNameOrMime(text, type));
         } else {
-            //mFileIcon.setImageDrawable(context.getResources().getDrawable(resourceId));
-            //mFileIcon.getHierarchy().setPlaceholderImage(resourceId);
+            //fileIcon.setImageDrawable(mContext.getResources().getDrawable(resourceId));
+            //fileIcon.getHierarchy().setPlaceholderImage(resourceId);
         }
 
         if (url != null && url.exists()) {
             Uri uri = Uri.fromFile(url);
-            ////mFileIcon.setImageURI(uri); //Not working --> from sourcecode
-            ////mFileIcon.setController(mControllerBuilder.setUri(uri).build());  //Todo:拿缩略图
+            ////fileIcon.setImageURI(uri); //Not working --> from sourcecode
+            ////fileIcon.setController(mControllerBuilder.setUri(uri).build());  //Todo:拿缩略图
 
         }
     }
@@ -170,21 +176,21 @@ public class DocumentView extends FrameLayout {
     }
 
     public void setChecked(boolean checked, boolean animated) {
-        if (mCheckbox.getVisibility() != VISIBLE) {
-            mCheckbox.setVisibility(VISIBLE);
+        if (checkbox.getVisibility() != VISIBLE) {
+            checkbox.setVisibility(VISIBLE);
         }
 
-        mCheckbox.setChecked(checked, animated);
+        checkbox.setChecked(checked, animated);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(Utils.dp(getContext(),56) + (mNeedDivider ? 1 : 0), MeasureSpec.EXACTLY));
+        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(Utils.dp(getContext(), 56) + (needDivider ? 1 : 0), MeasureSpec.EXACTLY));
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (mNeedDivider) {
+        if (needDivider) {
             canvas.drawLine(Utils.dp(getContext(),72), getHeight() - 1, getWidth() - getPaddingRight(), getHeight() - 1, mPaint);
         }
     }
