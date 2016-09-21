@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import wuxian.me.filepicker.FilePickerImpl.FileItem;
 import wuxian.me.filepicker.view.DocumentView;
 import wuxian.me.filepicker.view.TeleAndroidUtils;
 

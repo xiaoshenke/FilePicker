@@ -40,7 +40,7 @@ public class FilePickerActivity extends AppCompatActivity implements IFilePicker
     }
 
     @Override
-    public void onEnterMuitiSelectMode() {
+    public void onEnterMultiSelectMode() {
         Toast.makeText(this,"aha,you have enterred multiseletmode!",Toast.LENGTH_LONG).show();
     }
 

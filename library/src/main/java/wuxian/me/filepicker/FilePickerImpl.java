@@ -21,9 +21,11 @@ import wuxian.me.filepicker.view.TeleAndroidUtils;
 /**
  * Created by wuxian on 1/9/2016.
  *
- * 文件浏览器接口实现者
- * 1 实现列出当前文件的功能 ui展示交给IListview
- * 2 实现抛出文件浏览异常的功能 ui展示?
+ * Implementation class of filepicker.
+ *
+ * It implements these functions.
+ * 1 list files data of current directory,show them in @IListView
+ * 2 deal with exceptions for eg. access error,and show some message in Ui
  *
  */
 
@@ -268,7 +270,7 @@ public class FilePickerImpl {
 
     public void enterMuitiSelectMode() {
         if (mListener != null) {
-            mListener.onEnterMuitiSelectMode();
+            mListener.onEnterMultiSelectMode();
         }
 
     }
@@ -348,6 +350,15 @@ public class FilePickerImpl {
         if (mListener != null) {
             // mListener.filesSelected(state);
         }
+    }
+
+    public static class FileItem {
+        public int icon;               //系统图标
+        public File thumb;           //图标
+        public String title;           //名字
+        public String subtitle = "";   //???
+        public String ext = "";        //???
+        public File file;              //文件
     }
 
 
