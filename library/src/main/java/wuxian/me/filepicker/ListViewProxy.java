@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import wuxian.me.filepicker.FilePickerImpl.FileItem;
 import wuxian.me.filepicker.view.DocumentView;
+import wuxian.me.filepicker.view.FileItem;
 import wuxian.me.filepicker.view.Utils;
 
 /**
@@ -256,15 +256,6 @@ public class ListViewProxy implements IListView {
             FileItem item = mFileItems.get(position);
 
             ((DocumentView) convertView).setFileItem(item);
-
-            if (item.iconRes != 0) {
-                ((DocumentView) convertView).setTextAndValueAndTypeAndThumb(item.title, item.subtitle, null, null, item.iconRes);
-
-            } else {
-                ((DocumentView) convertView).setFileItem(item);
-                String type = item.type.toUpperCase().substring(0, Math.min(item.type.length(), 4));
-                ((DocumentView) convertView).setTextAndValueAndTypeAndThumb(item.title, item.subtitle, type, item.thumbFile, 0);
-            }
 
             if (item.file != null) {
                 docView.setChecked(mSelectedFiles.containsKey(item.file.toString()), false);

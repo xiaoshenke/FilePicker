@@ -11,17 +11,22 @@ package wuxian.me.filepicker.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import wuxian.me.filepicker.FilePickerImpl.FileItem;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
+import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.image.ImageInfo;
+
 import java.io.File;
 import wuxian.me.filepicker.R;
 
@@ -29,6 +34,7 @@ import wuxian.me.filepicker.R;
  * DocumentView --> SharedDocumentCell
  */
 public class DocumentView extends FrameLayout {
+    private static final String TAG = "DocView";
     private static Paint mPaint;
     private int icons[] = {
             R.mipmap.media_doc_blue,
@@ -70,9 +76,9 @@ public class DocumentView extends FrameLayout {
         checkbox.setDrawableResource(R.mipmap.ic_round_check);
         checkbox.setVisibility(GONE);
 
-        //fileIcon = (SimpleDraweeView) mView.findViewById(R.id.iv_file_icon);
+        fileIcon = (SimpleDraweeView) mView.findViewById(R.id.iv_file_icon);
 
-        /*
+
         mControllerBuilder = Fresco.newDraweeControllerBuilder().setControllerListener(new ControllerListener<ImageInfo>() {
             @Override
             public void onSubmit(String id, Object callerContext) {
@@ -99,14 +105,15 @@ public class DocumentView extends FrameLayout {
             public void onRelease(String id) {
             }
         });
-        */
 
         addView(mView, LayoutHelper.createFrame(mContext, LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.TOP, 0, 0, 0, 0));
     }
 
-    private int getThumbForNameOrMime(String name, String mime) {
-        if (name != null && name.length() != 0) {
-            int color = -1;
+    private int getThumbResForTitle(String name) {
+        Log.d(TAG,"getThumbResForTitle: "+name);
+        int color = -1;
+        if (!TextUtils.isEmpty(name)) {
+
             if (name.contains(".doc") || name.contains(".txt") || name.contains(".psd")) {
                 color = 0;
             } else if (name.contains(".xls") || name.contains(".csv")) {
@@ -125,9 +132,12 @@ public class DocumentView extends FrameLayout {
                     color = name.charAt(0) % icons.length;
                 }
             }
-            return icons[color];
+
+        } else {
+            color = 0;
         }
-        return icons[0];
+        Log.d(TAG,"return position:"+color+"'s color");
+        return icons[color];
     }
 
     public void setFileItem(FileItem item){
@@ -138,11 +148,18 @@ public class DocumentView extends FrameLayout {
         fileTitle.setText(item.title);
         fileSubTitle.setText(item.subtitle);
 
-        //Todo:设置占位图及图片
-        if(item.iconRes != 0){
-            ;
+
+        if(item.iconRes != 0){  //set placeholder
+            fileIcon.setImageDrawable(mContext.getResources().getDrawable(item.iconRes));
+            fileIcon.getHierarchy().setPlaceholderImage(item.iconRes);
         }else{
-            ;
+            fileIcon.setImageDrawable(mContext.getResources().getDrawable(getThumbResForTitle(item.title)));
+            fileIcon.getHierarchy().setPlaceholderImage(getThumbResForTitle(item.title));
+        }
+
+        Uri uri = getThumbnailFromFile(item.thumbFile);
+        if(uri != null){  //load thumbnail icon by url
+            fileIcon.setController(mControllerBuilder.setUri(uri).build());
         }
 
         if(!TextUtils.isEmpty(item.type)){
@@ -154,31 +171,9 @@ public class DocumentView extends FrameLayout {
 
     }
 
-    public void setTextAndValueAndTypeAndThumb(String text, String value, String type, File url, int resourceId) {
-        fileTitle.setText(text);
-        fileSubTitle.setText(value);
-
-        if (type != null) {
-            fileType.setVisibility(VISIBLE);
-            fileType.setText(type);
-        } else {
-            fileType.setVisibility(INVISIBLE);
-        }
-
-        if (resourceId == 0) {  //设置placeholder
-            //fileIcon.setImageDrawable(mContext.getResources().getDrawable(getThumbForNameOrMime(text, type)));
-            //fileIcon.getHierarchy().setPlaceholderImage(getThumbForNameOrMime(text, type));
-        } else {
-            //fileIcon.setImageDrawable(mContext.getResources().getDrawable(resourceId));
-            //fileIcon.getHierarchy().setPlaceholderImage(resourceId);
-        }
-
-        if (url != null && url.exists()) {
-            Uri uri = Uri.fromFile(url);
-            ////fileIcon.setImageURI(uri); //Not working --> from sourcecode
-            ////fileIcon.setController(mControllerBuilder.setUri(uri).build());  //Todo:拿缩略图
-
-        }
+    private Uri getThumbnailFromFile(File file){
+        //Todo: to be implemented
+        return null;
     }
 
     @Override

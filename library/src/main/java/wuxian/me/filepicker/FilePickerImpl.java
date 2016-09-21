@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import wuxian.me.filepicker.view.FileItem;
 import wuxian.me.filepicker.view.Utils;
 
 /**
@@ -331,20 +332,6 @@ public class FilePickerImpl {
         if (mListener != null) {
             // mListener.filesSelected(state);
         }
-    }
-
-    /**
-     * data of Documentview viewHolder --> R.layout.view_document
-     */
-    public static class FileItem {
-        public int iconRes;               //resourceId of iconRes ,for eg. R.mipmap.ic_directory
-        public String type = "";          //type for eg. word,pdf,..
-        public File thumbFile;             //url of file --> 根据file的url拿到thumbnail
-
-        public String title;
-        public String subtitle = "";
-
-        public File file;              //real file
     }
 
 }

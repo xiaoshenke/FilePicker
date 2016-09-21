@@ -1,7 +1,8 @@
 package wuxian.me.filepicker;
 
 import java.util.List;
-import wuxian.me.filepicker.FilePickerImpl.FileItem;
+
+import wuxian.me.filepicker.view.FileItem;
 
 /**
  * Created by wuxian on 1/9/2016.
