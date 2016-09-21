@@ -89,7 +89,7 @@ public class ListViewProxy implements IListView {
                     //listView.setSelectionFromTop(he.scrollItem, he.scrollOffset);
 
                 } else if (file.isDirectory()) {
-                    if (mPicker.inMultiSelectMode()) {  //多选模式选中文件夹的处理?
+                    if (isInMultiSelectMode()) {  //多选模式选中文件夹的处理?
                         return;
                     }
 

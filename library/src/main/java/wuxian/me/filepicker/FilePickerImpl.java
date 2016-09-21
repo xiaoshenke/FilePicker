@@ -3,7 +3,6 @@ package wuxian.me.filepicker;
 import android.annotation.SuppressLint;
 import android.os.Environment;
 import android.os.StatFs;
-import android.util.Log;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -87,7 +86,6 @@ public class FilePickerImpl {
             }
 
             String defaultPath = Environment.getExternalStorageDirectory().getPath();
-
             item.subtitle = getSubtitleOfPath(defaultPath);
             item.file = Environment.getExternalStorageDirectory();
             items.add(item);
@@ -214,7 +212,6 @@ public class FilePickerImpl {
                     item.icon = 0;
                     if (fname.endsWith(".jpg") || fname.endsWith(".png") || fname.endsWith(".gif") || fname.endsWith(".jpeg")) {
                         item.thumb = file;
-                        Log.e("test", "item.icon is 0 and thumb is " + item.thumb);
                     }
                 }
                 items.add(item);
@@ -259,19 +256,12 @@ public class FilePickerImpl {
         if (mListener != null) {
             mListener.onEnterMultiSelectMode();
         }
-
     }
-
 
     public void quitMultiSelectMode() {
         if (mListener != null) {
             mListener.onQuitMultiSelectMode();
         }
-
-    }
-
-    public boolean inMultiSelectMode() {
-        return mListView.isInMultiSelectMode();
     }
 
 
@@ -347,6 +337,5 @@ public class FilePickerImpl {
         public String ext = "";        //???
         public File file;              //文件
     }
-
 
 }
