@@ -17,7 +17,7 @@ import wuxian.me.filepicker.FilePickerImpl;
  */
 
 public class FilePickerActivity extends AppCompatActivity implements IFilePickerListener {
-    FilePickerImpl mPicker = new FilePickerImpl(this);
+    private FilePickerImpl mPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +34,8 @@ public class FilePickerActivity extends AppCompatActivity implements IFilePicker
         ListView listView = (ListView) findViewById(R.id.listView);
 
         IListView iListView = new ListViewProxy(mPicker, listView, this);
+        mPicker = new FilePickerImpl(iListView,this);
 
-        mPicker.setListview(iListView);
         mPicker.listRootFiles();  //默认打开根目录下文件
     }
 

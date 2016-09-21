@@ -10,7 +10,6 @@ package wuxian.me.filepicker.view;
 
 import android.content.Context;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
@@ -22,7 +21,7 @@ public class LayoutHelper {
     public static final int WRAP_CONTENT = -2;
 
     private static int getSize(Context context,float size) {
-        return (int) (size < 0 ? size : TeleAndroidUtils.dp(context,size));
+        return (int) (size < 0 ? size : Utils.dp(context,size));
     }
 
     public static FrameLayout.LayoutParams createScroll(Context context,int width, int height, int gravity) {
@@ -31,7 +30,7 @@ public class LayoutHelper {
 
     public static FrameLayout.LayoutParams createFrame(Context context,int width, float height, int gravity, float leftMargin, float topMargin, float rightMargin, float bottomMargin) {
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(getSize(context,width), getSize(context,height), gravity);
-        layoutParams.setMargins(TeleAndroidUtils.dp(context,leftMargin), TeleAndroidUtils.dp(context,topMargin), TeleAndroidUtils.dp(context,rightMargin), TeleAndroidUtils.dp(context,bottomMargin));
+        layoutParams.setMargins(Utils.dp(context,leftMargin), Utils.dp(context,topMargin), Utils.dp(context,rightMargin), Utils.dp(context,bottomMargin));
         return layoutParams;
     }
 
@@ -53,10 +52,10 @@ public class LayoutHelper {
         if (alignRelative >= 0 && anchorRelative >= 0) {
             layoutParams.addRule(alignRelative, anchorRelative);
         }
-        layoutParams.leftMargin = TeleAndroidUtils.dp(context,leftMargin);
-        layoutParams.topMargin = TeleAndroidUtils.dp(context,topMargin);
-        layoutParams.rightMargin = TeleAndroidUtils.dp(context,rightMargin);
-        layoutParams.bottomMargin = TeleAndroidUtils.dp(context,bottomMargin);
+        layoutParams.leftMargin = Utils.dp(context,leftMargin);
+        layoutParams.topMargin = Utils.dp(context,topMargin);
+        layoutParams.rightMargin = Utils.dp(context,rightMargin);
+        layoutParams.bottomMargin = Utils.dp(context,bottomMargin);
         return layoutParams;
     }
 
@@ -91,27 +90,27 @@ public class LayoutHelper {
 
     public static LinearLayout.LayoutParams createLinear(int width, int height, float weight, int gravity, int leftMargin, int topMargin, int rightMargin, int bottomMargin) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(getSize(width), getSize(height), weight);
-        layoutParams.setMargins(TeleAndroidUtils.dp(leftMargin), TeleAndroidUtils.dp(topMargin), TeleAndroidUtils.dp(rightMargin), TeleAndroidUtils.dp(bottomMargin));
+        layoutParams.setMargins(Utils.dp(leftMargin), Utils.dp(topMargin), Utils.dp(rightMargin), Utils.dp(bottomMargin));
         layoutParams.gravity = gravity;
         return layoutParams;
     }
 
     public static LinearLayout.LayoutParams createLinear(int width, int height, float weight, int leftMargin, int topMargin, int rightMargin, int bottomMargin) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(getSize(width), getSize(height), weight);
-        layoutParams.setMargins(TeleAndroidUtils.dp(leftMargin), TeleAndroidUtils.dp(topMargin), TeleAndroidUtils.dp(rightMargin), TeleAndroidUtils.dp(bottomMargin));
+        layoutParams.setMargins(Utils.dp(leftMargin), Utils.dp(topMargin), Utils.dp(rightMargin), Utils.dp(bottomMargin));
         return layoutParams;
     }
 
     public static LinearLayout.LayoutParams createLinear(int width, int height, int gravity, int leftMargin, int topMargin, int rightMargin, int bottomMargin) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(getSize(width), getSize(height));
-        layoutParams.setMargins(TeleAndroidUtils.dp(leftMargin), TeleAndroidUtils.dp(topMargin), TeleAndroidUtils.dp(rightMargin), TeleAndroidUtils.dp(bottomMargin));
+        layoutParams.setMargins(Utils.dp(leftMargin), Utils.dp(topMargin), Utils.dp(rightMargin), Utils.dp(bottomMargin));
         layoutParams.gravity = gravity;
         return layoutParams;
     }
 
     public static LinearLayout.LayoutParams createLinear(int width, int height, float leftMargin, float topMargin, float rightMargin, float bottomMargin) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(getSize(width), getSize(height));
-        layoutParams.setMargins(TeleAndroidUtils.dp(leftMargin), TeleAndroidUtils.dp(topMargin), TeleAndroidUtils.dp(rightMargin), TeleAndroidUtils.dp(bottomMargin));
+        layoutParams.setMargins(Utils.dp(leftMargin), Utils.dp(topMargin), Utils.dp(rightMargin), Utils.dp(bottomMargin));
         return layoutParams;
     }
 

@@ -11,7 +11,6 @@ package wuxian.me.filepicker.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,11 +19,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
-import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.image.ImageInfo;
 
 import java.io.File;
 
@@ -182,13 +178,13 @@ public class DocumentView extends FrameLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(TeleAndroidUtils.dp(getContext(),56) + (mNeedDivider ? 1 : 0), MeasureSpec.EXACTLY));
+        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(Utils.dp(getContext(),56) + (mNeedDivider ? 1 : 0), MeasureSpec.EXACTLY));
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         if (mNeedDivider) {
-            canvas.drawLine(TeleAndroidUtils.dp(getContext(),72), getHeight() - 1, getWidth() - getPaddingRight(), getHeight() - 1, mPaint);
+            canvas.drawLine(Utils.dp(getContext(),72), getHeight() - 1, getWidth() - getPaddingRight(), getHeight() - 1, mPaint);
         }
     }
 }

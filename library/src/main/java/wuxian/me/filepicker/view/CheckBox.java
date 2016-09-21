@@ -81,12 +81,12 @@ public class CheckBox extends View {
             eraser2 = new Paint(Paint.ANTI_ALIAS_FLAG);
             eraser2.setColor(0);
             eraser2.setStyle(Paint.Style.STROKE);
-            eraser2.setStrokeWidth(TeleAndroidUtils.dp(getContext(),28));
+            eraser2.setStrokeWidth(Utils.dp(getContext(),28));
             eraser2.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
             backgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             backgroundPaint.setColor(0xffffffff);
             backgroundPaint.setStyle(Paint.Style.STROKE);
-            backgroundPaint.setStrokeWidth(TeleAndroidUtils.dp(getContext(),2));
+            backgroundPaint.setStrokeWidth(Utils.dp(getContext(),2));
         }
     }
 
@@ -94,9 +94,9 @@ public class CheckBox extends View {
     public void setVisibility(int visibility) {
         super.setVisibility(visibility);
         if (visibility == VISIBLE && drawBitmap == null) {
-            drawBitmap = Bitmap.createBitmap(TeleAndroidUtils.dp(getContext(),size), TeleAndroidUtils.dp(getContext(),size), Bitmap.Config.ARGB_4444);
+            drawBitmap = Bitmap.createBitmap(Utils.dp(getContext(),size), Utils.dp(getContext(),size), Bitmap.Config.ARGB_4444);
             bitmapCanvas = new Canvas(drawBitmap);
-            checkBitmap = Bitmap.createBitmap(TeleAndroidUtils.dp(getContext(),size), TeleAndroidUtils.dp(getContext(),size), Bitmap.Config.ARGB_4444);
+            checkBitmap = Bitmap.createBitmap(Utils.dp(getContext(),size), Utils.dp(getContext(),size), Bitmap.Config.ARGB_4444);
             checkCanvas = new Canvas(checkBitmap);
         }
     }
@@ -183,7 +183,7 @@ public class CheckBox extends View {
             return;
         }
         if (drawBackground || progress != 0) {
-            eraser2.setStrokeWidth(TeleAndroidUtils.dp(getContext(),size + 6));
+            eraser2.setStrokeWidth(Utils.dp(getContext(),size + 6));
 
             drawBitmap.eraseColor(0);
             float rad = getMeasuredWidth() / 2;
@@ -193,14 +193,14 @@ public class CheckBox extends View {
 
             float roundProgressCheckState = isCheckAnimation ? progress : (1.0f - progress);
             if (roundProgressCheckState < progressBounceDiff) {
-                rad -= TeleAndroidUtils.dp(getContext(),2) * roundProgressCheckState / progressBounceDiff;
+                rad -= Utils.dp(getContext(),2) * roundProgressCheckState / progressBounceDiff;
             } else if (roundProgressCheckState < progressBounceDiff * 2) {
-                rad -= TeleAndroidUtils.dp(getContext(),2) - TeleAndroidUtils.dp(getContext(),2) * (roundProgressCheckState - progressBounceDiff) / progressBounceDiff;
+                rad -= Utils.dp(getContext(),2) - Utils.dp(getContext(),2) * (roundProgressCheckState - progressBounceDiff) / progressBounceDiff;
             }
             if (drawBackground) {
                 paint.setColor(0x44000000);
-                canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, rad - TeleAndroidUtils.dp(getContext(),1), paint);
-                canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, rad - TeleAndroidUtils.dp(getContext(),1), backgroundPaint);
+                canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, rad - Utils.dp(getContext(),1), paint);
+                canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, rad - Utils.dp(getContext(),1), backgroundPaint);
             }
 
             paint.setColor(color);
@@ -221,7 +221,7 @@ public class CheckBox extends View {
                 checkDrawable.draw(checkCanvas);
             }
 
-            checkCanvas.drawCircle(getMeasuredWidth() / 2 - TeleAndroidUtils.dp(getContext(),2.5f), getMeasuredHeight() / 2 + TeleAndroidUtils.dp(getContext(),4), ((getMeasuredWidth() + TeleAndroidUtils.dp(getContext(),6)) / 2) * (1 - checkProgress), eraser2);
+            checkCanvas.drawCircle(getMeasuredWidth() / 2 - Utils.dp(getContext(),2.5f), getMeasuredHeight() / 2 + Utils.dp(getContext(),4), ((getMeasuredWidth() + Utils.dp(getContext(),6)) / 2) * (1 - checkProgress), eraser2);
 
             canvas.drawBitmap(checkBitmap, 0, 0, null);
         }

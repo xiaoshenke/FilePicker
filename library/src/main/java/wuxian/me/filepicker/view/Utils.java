@@ -12,11 +12,11 @@ import android.widget.ListView;
  * Created by wuxian on 1/9/2016.
  */
 
-public class TeleAndroidUtils {
+public class Utils {
     public static Integer photoSize = null;
     public static float density = 1;
 
-    private TeleAndroidUtils() {
+    private Utils() {
         ;
     }
 

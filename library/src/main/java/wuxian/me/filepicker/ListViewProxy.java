@@ -15,7 +15,7 @@ import java.util.List;
 
 import wuxian.me.filepicker.FilePickerImpl.FileItem;
 import wuxian.me.filepicker.view.DocumentView;
-import wuxian.me.filepicker.view.TeleAndroidUtils;
+import wuxian.me.filepicker.view.Utils;
 
 /**
  * Created by wuxian on 1/9/2016.
@@ -40,10 +40,6 @@ public class ListViewProxy implements IListView {
 
         if (context == null) {
             throw new IllegalArgumentException("context can't be null");
-        }
-
-        if (picker == null) {
-            throw new IllegalArgumentException("picker can't be null");
         }
 
         mPicker = picker;
@@ -80,7 +76,7 @@ public class ListViewProxy implements IListView {
                         return;
                     }
                     HistoryEntry he = mHistories.remove(mHistories.size() - 1);
-                    TeleAndroidUtils.clearDrawableAnimation(listView);
+                    Utils.clearDrawableAnimation(listView);
                     //Todo: actionbar ui更改?
                     if (he.dir != null) {
                         mCurrentDir = he.dir;

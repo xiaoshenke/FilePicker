@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Environment;
 import android.os.StatFs;
 import android.util.Log;
-
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -16,7 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import wuxian.me.filepicker.view.TeleAndroidUtils;
+import wuxian.me.filepicker.view.Utils;
 
 /**
  * Created by wuxian on 1/9/2016.
@@ -44,16 +42,11 @@ public class FilePickerImpl {
     }
 
     private IFilePickerListener mListener;  //传入的回调
-
-    public FilePickerImpl(IFilePickerListener listener) {
-        mListener = listener;
-    }
-
-
     private IListView mListView;
 
-    public void setListview(IListView listview) {
-        mListView = listview;
+    public FilePickerImpl(IListView listView,IFilePickerListener listener) {
+        mListView = listView;
+        mListener = listener;
     }
 
     private String getSubtitleOfPath(String path) {
@@ -64,7 +57,7 @@ public class FilePickerImpl {
             if (total == 0) {
                 return "";
             }
-            return "free " + TeleAndroidUtils.formatFileSize(free) + " of " + TeleAndroidUtils.formatFileSize(total);
+            return "free " + Utils.formatFileSize(free) + " of " + Utils.formatFileSize(total);
         } catch (Exception e) {
 
         }
@@ -72,13 +65,11 @@ public class FilePickerImpl {
     }
 
     /**
-     * 拿到sdk卡路径下的文件
-     *
+     * get files in '/' directory.
      * @return
      */
     @SuppressLint("NewApi")
     private List<FileItem> getRootItems() {
-
         List<FileItem> items = new ArrayList<>();
         items.clear();
 
@@ -164,10 +155,6 @@ public class FilePickerImpl {
         items.add(fs);
 
         return items;
-
-        //Todo:列出telegram目录
-        // Todo:列出gallery
-
     }
 
     public void listRootFiles() {
@@ -222,7 +209,7 @@ public class FilePickerImpl {
                     String fname = file.getName();
                     String[] sp = fname.split("\\.");
                     item.ext = sp.length > 1 ? sp[sp.length - 1] : "?";
-                    item.subtitle = TeleAndroidUtils.formatFileSize(file.length());
+                    item.subtitle = Utils.formatFileSize(file.length());
                     fname = fname.toLowerCase();
                     item.icon = 0;
                     if (fname.endsWith(".jpg") || fname.endsWith(".png") || fname.endsWith(".gif") || fname.endsWith(".jpeg")) {
