@@ -19,12 +19,14 @@ import wuxian.me.filepicker.view.Utils;
 
 /**
  * Created by wuxian on 1/9/2016.
+ *
+ * Real listview implementation.
  */
 
 public class ListViewProxy implements IListView {
 
     private ListView mListView;
-    private FileAdapter mAdapter;
+    private FileAdapter mFileAdapter;
     private FilePickerImpl mPicker;
 
     private boolean mInMultiSelectMode = false;
@@ -33,7 +35,7 @@ public class ListViewProxy implements IListView {
     private List<HistoryEntry> mHistories = new ArrayList<>();
     private HashMap<String, FileItem> mSelectedFiles = new HashMap<>();
 
-    public ListViewProxy(FilePickerImpl picker, ListView listView, Context context) {
+    public ListViewProxy(ListView listView,IFilePickerListener listener, Context context) {
         if (listView == null) {
             throw new IllegalArgumentException("listview can't be null");
         }
@@ -42,13 +44,19 @@ public class ListViewProxy implements IListView {
             throw new IllegalArgumentException("context can't be null");
         }
 
-        mPicker = picker;
+        if(listener == null){
+            throw new IllegalArgumentException("listener can't be null");
+        }
+
+
         mListView = listView;
+        mFileAdapter = new FileAdapter(context);
+        mListView.setAdapter(mFileAdapter);
+        setClickListenerTo(mListView);
 
-        mAdapter = new FileAdapter(context);
-        mListView.setAdapter(mAdapter);
-
-        setClickListener(mListView);
+        mPicker = new FilePickerImpl(listener);
+        mPicker.setListView(this);
+        mPicker.listRootFiles();
     }
 
     @Override
@@ -56,7 +64,7 @@ public class ListViewProxy implements IListView {
         return mInMultiSelectMode;
     }
 
-    private void setClickListener(final ListView listView) {
+    private void setClickListenerTo(final ListView listView) {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -77,7 +85,6 @@ public class ListViewProxy implements IListView {
                     }
                     HistoryEntry he = mHistories.remove(mHistories.size() - 1);
                     Utils.clearDrawableAnimation(listView);
-                    //Todo: actionbar ui更改?
                     if (he.dir != null) {
                         mCurrentDir = he.dir;
                         mPicker.listFilesUnder(he.dir);
@@ -100,14 +107,12 @@ public class ListViewProxy implements IListView {
                     //he.title = actionBar.getTitle();
                     mHistories.add(he);
 
-                    //Todo 滑动处理
                     FilePickerImpl.State state = mPicker.getFileState(file);
 
                     if (state == FilePickerImpl.State.STATE_DIR_NORMAL) {
                         mCurrentDir = file;
                         mPicker.listFilesUnder(file);
                     } else {
-                        //Todo
                     }
 
                     //listView.setSelection(0);
@@ -140,7 +145,6 @@ public class ListViewProxy implements IListView {
                             mPicker.filesSelected(files);
                         }
                     } else {
-                        //Todo:access error,length 0
                     }
                 }
             }
@@ -183,7 +187,6 @@ public class ListViewProxy implements IListView {
 
                     return true;
                 } else {
-                    //Todo 
                 }
 
 
@@ -194,18 +197,16 @@ public class ListViewProxy implements IListView {
 
     @Override
     public void setData(List<FileItem> datas) {
-        mAdapter.setData(datas);
+        mFileAdapter.setData(datas);
     }
 
     @Override
     public void addData(List<FileItem> datas) {
-        //Todo
-
     }
 
     @Override
     public void notifyDatasetChanged() {
-        mAdapter.notifyDataSetChanged();
+        mFileAdapter.notifyDataSetChanged();
     }
 
     private class FileAdapter extends BaseAdapter {
@@ -256,7 +257,7 @@ public class ListViewProxy implements IListView {
             DocumentView docView = (DocumentView) convertView;
             FileItem item = mFileItems.get(position);
 
-            ((DocumentView) convertView).setFileItem(item);
+            ((DocumentView) convertView).setViewByItem(item);
 
             if (item.file != null) {
                 docView.setChecked(mSelectedFiles.containsKey(item.file.toString()), false);

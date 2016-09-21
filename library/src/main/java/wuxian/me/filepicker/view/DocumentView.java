@@ -140,7 +140,7 @@ public class DocumentView extends FrameLayout {
         return icons[color];
     }
 
-    public void setFileItem(FileItem item){
+    public void setViewByItem(FileItem item){
         if(item == null){
             return;
         }
