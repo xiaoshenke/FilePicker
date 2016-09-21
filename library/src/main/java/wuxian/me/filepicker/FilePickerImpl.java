@@ -43,9 +43,12 @@ public class FilePickerImpl {
     private IFilePickerListener mListener;  //传入的回调
     private IListView mListView;
 
-    public FilePickerImpl(IListView listView,IFilePickerListener listener) {
-        mListView = listView;
+    public FilePickerImpl(IFilePickerListener listener) {
         mListener = listener;
+    }
+
+    public void setListView(IListView listView){
+        mListView = listView;
     }
 
     private String getSubtitleOfPath(String path) {
@@ -71,11 +74,12 @@ public class FilePickerImpl {
     private List<FileItem> getRootItems() {
         List<FileItem> items = new ArrayList<>();
         items.clear();
-
         HashSet<String> paths = new HashSet<>();
+
         String state = Environment.getExternalStorageState();
 
         if (state.equals(Environment.MEDIA_MOUNTED) || state.equals(Environment.MEDIA_MOUNTED_READ_ONLY)) {
+            //正常挂载
             FileItem item = new FileItem();
             if (Environment.isExternalStorageRemovable()) {
                 item.title = "SdCard";
@@ -329,13 +333,19 @@ public class FilePickerImpl {
         }
     }
 
+    /**
+     * data of Documentview viewHolder --> R.layout.view_document
+     */
     public static class FileItem {
-        public int icon;               //系统图标
-        public File thumb;           //图标
+        public int icon;               //resourceId of icon ,for eg. R.mipmap.ic_directory
+        public File thumb;             //url of file --> 根据file的url拿到thumbnail
+
+        public File file;              //real file
+
         public String title;           //名字
         public String subtitle = "";   //???
         public String ext = "";        //???
-        public File file;              //文件
+
     }
 
 }

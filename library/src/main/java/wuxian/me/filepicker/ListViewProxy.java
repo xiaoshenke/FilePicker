@@ -256,7 +256,9 @@ public class ListViewProxy implements IListView {
             FileItem item = mFileItems.get(position);
             if (item.icon != 0) {
                 ((DocumentView) convertView).setTextAndValueAndTypeAndThumb(item.title, item.subtitle, null, null, item.icon);
+                ((DocumentView) convertView).setFileItem(item);
             } else {
+                ((DocumentView) convertView).setFileItem(item);
                 String type = item.ext.toUpperCase().substring(0, Math.min(item.ext.length(), 4));
                 ((DocumentView) convertView).setTextAndValueAndTypeAndThumb(item.title, item.subtitle, type, item.thumb, 0);
             }

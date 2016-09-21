@@ -19,19 +19,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import wuxian.me.filepicker.FilePickerImpl.FileItem;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import java.io.File;
-
 import wuxian.me.filepicker.R;
 
-/**
- * 用于文件浏览器page每个item的view。 --> From telegram SharedDocumentCell
- * 它可能是以下类型
- * 1 路径
- * 2 各类文件
- */
 public class DocumentView extends FrameLayout {
     private View mView;
     private SimpleDraweeView mFileIcon;
@@ -136,12 +129,20 @@ public class DocumentView extends FrameLayout {
         return icons[0];
     }
 
+    public void setFileItem(FileItem item){
+        if(item == null){
+            return;
+        }
+
+
+    }
+
     public void setTextAndValueAndTypeAndThumb(String text, String value, String type, File url, int resourceId) {
         mFileName.setText(text);
         mFileDate.setText(value);
 
         if (type != null) {
-            mFileExt.setVisibility(VISIBLE);  //????
+            mFileExt.setVisibility(VISIBLE);
             mFileExt.setText(type);
         } else {
             mFileExt.setVisibility(INVISIBLE);
