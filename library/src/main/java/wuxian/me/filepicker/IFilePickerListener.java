@@ -18,7 +18,7 @@ import java.util.List;
  * 3 不关心进入文件夹可能抛出的异常 ???
  */
 
-public interface IFilePicker {
+public interface IFilePickerListener {
 
     void onEnterMuitiSelectMode();
 

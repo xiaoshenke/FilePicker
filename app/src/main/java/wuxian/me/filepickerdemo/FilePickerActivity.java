@@ -8,7 +8,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import wuxian.me.filepicker.IListView;
-import wuxian.me.filepicker.IFilePicker;
+import wuxian.me.filepicker.IFilePickerListener;
 import wuxian.me.filepicker.ListViewProxy;
 import wuxian.me.filepicker.FilePickerImpl;
 
@@ -16,7 +16,7 @@ import wuxian.me.filepicker.FilePickerImpl;
  * Created by wuxian on 20/9/2016.
  */
 
-public class FilePickerActivity extends AppCompatActivity implements IFilePicker {
+public class FilePickerActivity extends AppCompatActivity implements IFilePickerListener {
     FilePickerImpl mPicker = new FilePickerImpl(this);
 
     @Override

@@ -41,11 +41,10 @@ public class FilePickerImpl {
         STATE_FILE_ILLEGAL_LENGTH,
     }
 
-    private IFilePicker mPicker;  //传入的回调
-    //因为FilePickerImpl只封装了浏览的功能 比如说该调用onFileSelected时就调用真正的回调函数
+    private IFilePickerListener mListener;  //传入的回调
 
-    public FilePickerImpl(IFilePicker picker) {
-        mPicker = picker;
+    public FilePickerImpl(IFilePickerListener listener) {
+        mListener = listener;
     }
 
 
@@ -268,16 +267,16 @@ public class FilePickerImpl {
 
 
     public void enterMuitiSelectMode() {
-        if (mPicker != null) {
-            mPicker.onEnterMuitiSelectMode();
+        if (mListener != null) {
+            mListener.onEnterMuitiSelectMode();
         }
 
     }
 
 
     public void quitMultiSelectMode() {
-        if (mPicker != null) {
-            mPicker.onQuitMultiSelectMode();
+        if (mListener != null) {
+            mListener.onQuitMultiSelectMode();
         }
 
     }
@@ -288,8 +287,8 @@ public class FilePickerImpl {
 
 
     public void filesSelected(List<String> files) {
-        if (mPicker != null) {
-            mPicker.onFilesSelected(files);
+        if (mListener != null) {
+            mListener.onFilesSelected(files);
         }
 
     }
@@ -346,8 +345,8 @@ public class FilePickerImpl {
 
     public void onFileState(State state) {
         //Todo
-        if (mPicker != null) {
-            // mPicker.filesSelected(state);
+        if (mListener != null) {
+            // mListener.filesSelected(state);
         }
     }
 
