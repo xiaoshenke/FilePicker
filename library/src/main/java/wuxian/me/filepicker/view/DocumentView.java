@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -106,7 +107,8 @@ public class DocumentView extends FrameLayout {
             }
         });
 
-        addView(mView, LayoutHelper.createFrame(mContext, LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.TOP, 0, 0, 0, 0));
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.TOP);
+        addView(mView, layoutParams);
     }
 
     private int getThumbResForTitle(String name) {
