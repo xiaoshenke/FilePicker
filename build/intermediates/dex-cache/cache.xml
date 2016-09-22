@@ -3,39 +3,21 @@
 
     <item
         is-multidex="false"
-        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/0.9.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="24.0.1"
-        sha1="39bd9f893c75eac9e76559cc4e96af6e417afdc5">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-0.9.0_2d3c63f7d28fc74cd8aa9099277a121ec1a787ad.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/0.9.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.2"
-        sha1="39bd9f893c75eac9e76559cc4e96af6e417afdc5">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-0.9.0_2d3c63f7d28fc74cd8aa9099277a121ec1a787ad.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/FilePicker/library/unspecified/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.2"
-        sha1="29e57f485a7440ba2a16165b0ffe8c72cdd323c2">
+        sha1="cd61de9f3d7fa24c64a25d0f2e1263b8995f52aa">
         <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/FilePicker-library-unspecified_37473565dd01f348df30fd5cad3b5ff15cbf2adf.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/0.9.0/jars/classes.jar"
+        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.2"
-        sha1="ca51025f4a58fc7fb6cfaa85e7d09b7ae47e6187">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-0.9.0_3ae6bfe6a6c80617b1ea3c76daf0da1c9d774fd6.jar" />
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.4.0_f9b3287abdc2918897491ed76b5ee2da5f0bbb39.jar" />
     </item>
     <item
         is-multidex="false"
@@ -48,75 +30,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/0.9.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="24.0.1"
-        sha1="ca51025f4a58fc7fb6cfaa85e7d09b7ae47e6187">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-0.9.0_3ae6bfe6a6c80617b1ea3c76daf0da1c9d774fd6.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/wuxian/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.4/129874135e6081269ace2312092031558865de12/bolts-android-1.1.4.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="24.0.1"
-        sha1="129874135e6081269ace2312092031558865de12">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/bolts-android-1.1.4_c6d9d505bd1cd472ad111b0405b2c4c4245f64e8.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/wuxian/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.4/129874135e6081269ace2312092031558865de12/bolts-android-1.1.4.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.2"
-        sha1="129874135e6081269ace2312092031558865de12">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/bolts-android-1.1.4_c6d9d505bd1cd472ad111b0405b2c4c4245f64e8.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/FilePicker/library/unspecified/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="24.0.1"
         sha1="fcbb9dbaed32c105f401a310b86a3f3a796a2165">
         <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/FilePicker-library-unspecified_37473565dd01f348df30fd5cad3b5ff15cbf2adf.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/0.9.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.2"
-        sha1="3158c15bb0ae97575debdb40cfcd8f0f9f244526">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-0.9.0_d6244a2898d3b87a1bb93e41759bf85d41b946b0.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/0.9.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.2"
-        sha1="57528b5deee77bfa2188fc279fd45066366f17f5">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-0.9.0_5a1092d0e2bf6165c2320ebf14d8f1b07d57e18c.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/0.9.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="24.0.1"
-        sha1="3158c15bb0ae97575debdb40cfcd8f0f9f244526">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-0.9.0_d6244a2898d3b87a1bb93e41759bf85d41b946b0.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/wuxian/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.2"
-        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/library-2.4.0_f6fc78e352e7a883a41348e583f7108052ee2927.jar" />
     </item>
     <item
         is-multidex="false"
@@ -129,57 +48,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/0.9.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.2"
-        sha1="4ee95617ab850030c51486d02bc9d207b14419c6">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-0.9.0_3ab94d5f945296028453b2b554569ed6e06c1b1c.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/wuxian/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.2"
         sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
         <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/support-annotations-23.4.0_ae4687062434d9cef2e4a53b840bf9dc416d13f2.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/wuxian/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="24.0.1"
-        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/library-2.4.0_f6fc78e352e7a883a41348e583f7108052ee2927.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/0.9.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="24.0.1"
-        sha1="57528b5deee77bfa2188fc279fd45066366f17f5">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-0.9.0_5a1092d0e2bf6165c2320ebf14d8f1b07d57e18c.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/0.9.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="24.0.1"
-        sha1="4ee95617ab850030c51486d02bc9d207b14419c6">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-0.9.0_3ab94d5f945296028453b2b554569ed6e06c1b1c.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.2"
-        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.4.0_f9b3287abdc2918897491ed76b5ee2da5f0bbb39.jar" />
     </item>
     <item
         is-multidex="false"

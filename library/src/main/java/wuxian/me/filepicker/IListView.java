@@ -18,7 +18,6 @@ import wuxian.me.filepicker.view.FileItem;
  *
  * And I care about wheather it has already enterred multiselect mode.
  *
- * Todo: 怎么重新设计类图?? --> Todo: 应该是filePickerImpl里面有一个listview...
  */
 
 public interface IListView {

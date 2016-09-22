@@ -26,7 +26,7 @@ import android.widget.TextView;
 import wuxian.me.filepicker.R;
 
 /**
- * DocumentView --> SharedDocumentCell
+ * DocumentView
  */
 public class DocumentView extends FrameLayout {
     private static final String TAG = "DocView";
@@ -41,8 +41,8 @@ public class DocumentView extends FrameLayout {
     private View mView;
     private Context mContext;
 
-    private ImageView fileIcon;         //图标 可能从本地load
-    private TextView fileType;          //如果该file是一个已知类型比如pdf word,显示该类型
+    private ImageView fileIcon;
+    private TextView fileType;
 
     private TextView fileTitle;
     private TextView fileSubTitle;

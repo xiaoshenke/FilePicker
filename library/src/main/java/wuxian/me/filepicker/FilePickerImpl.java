@@ -49,7 +49,7 @@ public class FilePickerImpl {
         STATE_FILE_ILLEGAL_LENGTH,
     }
 
-    private IFilePickerListener mListener;  //传入的回调
+    private IFilePickerListener mListener;
     private IListView mListView;
 
     private File mCurrentDir = null;
@@ -87,26 +87,24 @@ public class FilePickerImpl {
 
                 FileItem item = items.get(position);
                 File file = item.file;
-                if (file == null) { //出现空的情况:比如当前是gallery的item --> 返回上一级
-                    if (mHistories.isEmpty()) {
+                if (file == null) {
+                    if (mHistories.isEmpty()) { //为null说明在root页面
                         mCurrentDir = null;
                         listRootFiles();
                         return;
                     }
                     HistoryEntry he = mHistories.remove(mHistories.size() - 1);
-                    //Utils.clearDrawableAnimation(listView);
+
                     if (he.dir != null) {
                         mCurrentDir = he.dir;
                         listFilesUnder(he.dir);
-                    } else {
+                    } else {                    //为null说明在root页面
                         mCurrentDir = null;
-                        listRootFiles();  //为null说明在root页面
+                        listRootFiles();
                     }
 
-                    //listView.setSelectionFromTop(he.scrollItem, he.scrollOffset);
-
                 } else if (file.isDirectory()) {
-                    if (isInMultiSelectMode()) {  //多选模式选中文件夹的处理?
+                    if (isInMultiSelectMode()) {
                         return;
                     }
 
@@ -163,24 +161,21 @@ public class FilePickerImpl {
             @Override
             public boolean onItemLongClick(View view, int position) {
                 List<FileItem> items = mListView.getFileItems();
-
                 if (position < 0 || position >= items.size()) {
                     return false;
                 }
 
-                if (mInMultiSelectMode) {  //处于长按状态时进行长按忽略这个动作
+                if (mInMultiSelectMode) {
                     return false;
                 }
 
                 FileItem item = items.get(position);
                 File file = item.file;
-
-                if (file == null || file.isDirectory()) {  //文件夹不允许选择
+                if (file == null || file.isDirectory()) {  //directory is not allowed to select
                     return false;
                 }
 
                 FilePickerImpl.State state = getFileState(file);
-
                 if (state == FilePickerImpl.State.STATE_FILE_NORMAL) {
                     mInMultiSelectMode = true;
                     enterMuitiSelectMode();
@@ -222,7 +217,6 @@ public class FilePickerImpl {
 
     /**
      * get files in '/' directory.
-     * @return
      */
     @SuppressLint("NewApi")
     private List<FileItem> getRootItems() {
@@ -252,7 +246,7 @@ public class FilePickerImpl {
 
         BufferedReader bufferedReader = null;
         try {
-            bufferedReader = new BufferedReader(new FileReader("/proc/mounts")); //????
+            bufferedReader = new BufferedReader(new FileReader("/proc/mounts"));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 if (line.contains("vfat") || line.contains("/mnt")) {
@@ -293,7 +287,6 @@ public class FilePickerImpl {
                 }
             }
         } catch (Exception e) {
-
         } finally {
             if (bufferedReader != null) {
                 try {
@@ -318,7 +311,6 @@ public class FilePickerImpl {
             mListView.setData(getRootItems());
             mListView.notifyDatasetChanged();
         }
-
     }
 
     private List<FileItem> getFilesUnder(File dir) {
@@ -405,24 +397,23 @@ public class FilePickerImpl {
             mListView.setData(getFilesUnder(file));
             mListView.notifyDatasetChanged();
         }
-
     }
 
 
-    public void enterMuitiSelectMode() {
+    private void enterMuitiSelectMode() {
         if (mListener != null) {
             mListener.onEnterMultiSelectMode();
         }
     }
 
-    public void quitMultiSelectMode() {
+    private void quitMultiSelectMode() {
         if (mListener != null) {
             mListener.onQuitMultiSelectMode();
         }
     }
 
 
-    public void filesSelected(List<String> files) {
+    private void filesSelected(List<String> files) {
         if (mListener != null) {
             mListener.onFilesSelected(files);
         }
@@ -430,11 +421,8 @@ public class FilePickerImpl {
 
     /**
      * 获取该file的状态。比如是否可读,是否是dir,是否有权限读取。等等。
-     *
-     * @param file
-     * @return
      */
-    public State getFileState(File file) {
+    private State getFileState(File file) {
         if (file.isDirectory()) {
             if (!file.canRead()) {
                 if (file.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().toString())
@@ -445,9 +433,9 @@ public class FilePickerImpl {
 
                         String state = Environment.getExternalStorageState();
                         if (Environment.MEDIA_SHARED.equals(state)) {
-                            return State.STATE_USB_ACTIVE;  //这个状态指?
+                            return State.STATE_USB_ACTIVE;
                         } else {
-                            return State.STATE_SDCARD_NOT_MOUNTED;  //sd卡未挂载
+                            return State.STATE_SDCARD_NOT_MOUNTED;
                         }
                     }
                 }
@@ -478,22 +466,22 @@ public class FilePickerImpl {
         }
     }
 
-    public void dealFileErrorState(State state) {
+    private void dealFileErrorState(State state) {
         if(state == State.STATE_DIR_ACCESS_ERROR){
             Toast.makeText(mContext,ERROR_DIR_ACCESS,Toast.LENGTH_LONG).show();
         } else if(state == State.STATE_FILE_ACCESS_ERROR){
             Toast.makeText(mContext,ERROR_FILE_ACCESS,Toast.LENGTH_LONG).show();
         }
-
     }
 
     /**
      * 用于返回上一级
      */
     private class HistoryEntry {
-        int scrollItem, scrollOffset;
-        File dir;
+        int scrollItem;
+        int scrollOffset;
         String title;
+        File dir;
     }
 
 }
