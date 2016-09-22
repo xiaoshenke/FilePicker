@@ -7,12 +7,11 @@
     android:layout_height="match_parent">
 
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/iv_file_icon"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="12dp"
-        app:placeholderImage="@mipmap/media_doc_blue"
         android:layout_width="40dp"
         android:layout_height="40dp" />
 

@@ -9,10 +9,11 @@
 package wuxian.me.filepicker.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.drawable.Animatable;
-import android.net.Uri;
+import android.media.ExifInterface;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -20,15 +21,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
-import com.facebook.drawee.controller.ControllerListener;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.image.ImageInfo;
-
-import java.io.File;
 import wuxian.me.filepicker.R;
 
 /**
@@ -47,8 +41,7 @@ public class DocumentView extends FrameLayout {
     private View mView;
     private Context mContext;
 
-    private PipelineDraweeControllerBuilder mControllerBuilder;
-    private SimpleDraweeView fileIcon;  //图标 可能从本地load 也可能是一个网络url
+    private ImageView fileIcon;         //图标 可能从本地load
     private TextView fileType;          //如果该file是一个已知类型比如pdf word,显示该类型
 
     private TextView fileTitle;
@@ -77,35 +70,7 @@ public class DocumentView extends FrameLayout {
         checkbox.setDrawableResource(R.mipmap.ic_round_check);
         checkbox.setVisibility(GONE);
 
-        fileIcon = (SimpleDraweeView) mView.findViewById(R.id.iv_file_icon);
-
-
-        mControllerBuilder = Fresco.newDraweeControllerBuilder().setControllerListener(new ControllerListener<ImageInfo>() {
-            @Override
-            public void onSubmit(String id, Object callerContext) {
-            }
-
-            @Override
-            public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                fileType.setVisibility(INVISIBLE);
-            }
-
-            @Override
-            public void onIntermediateImageSet(String id, ImageInfo imageInfo) {
-            }
-
-            @Override
-            public void onIntermediateImageFailed(String id, Throwable throwable) {
-            }
-
-            @Override
-            public void onFailure(String id, Throwable throwable) {
-            }
-
-            @Override
-            public void onRelease(String id) {
-            }
-        });
+        fileIcon = (ImageView) mView.findViewById(R.id.iv_file_icon);
 
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.TOP);
         addView(mView, layoutParams);
@@ -150,20 +115,6 @@ public class DocumentView extends FrameLayout {
         fileTitle.setText(item.title);
         fileSubTitle.setText(item.subtitle);
 
-
-        if(item.iconRes != 0){  //set placeholder
-            fileIcon.setImageDrawable(mContext.getResources().getDrawable(item.iconRes));
-            fileIcon.getHierarchy().setPlaceholderImage(item.iconRes);
-        }else{
-            fileIcon.setImageDrawable(mContext.getResources().getDrawable(getThumbResForTitle(item.title)));
-            fileIcon.getHierarchy().setPlaceholderImage(getThumbResForTitle(item.title));
-        }
-
-        Uri uri = getThumbnailFromFile(item.thumbFile);
-        if(uri != null){  //load thumbnail icon by url
-            fileIcon.setController(mControllerBuilder.setUri(uri).build());
-        }
-
         if(!TextUtils.isEmpty(item.type)){
             fileType.setText(item.type);
             fileType.setVisibility(VISIBLE);
@@ -171,12 +122,28 @@ public class DocumentView extends FrameLayout {
             fileType.setVisibility(INVISIBLE);
         }
 
-        setChecked(item.isChecked,false);
-    }
+        if(item.iconRes != 0){  //set placeholder
+            fileIcon.setImageDrawable(mContext.getResources().getDrawable(item.iconRes));
+        }else{
+            fileIcon.setImageDrawable(mContext.getResources().getDrawable(getThumbResForTitle(item.title)));
+        }
 
-    private Uri getThumbnailFromFile(File file){
-        //Todo: to be implemented
-        return null;
+        if(item.thumbFile != null){
+            try{
+                ExifInterface exif = new ExifInterface(item.thumbFile.getAbsolutePath());
+                byte[] data = exif.getThumbnail();
+                if(data != null && data.length != 0){
+                    Bitmap bm = BitmapFactory.decodeByteArray(data,0,data.length);
+                    fileIcon.setImageBitmap(bm);
+                    fileType.setVisibility(INVISIBLE);
+                }
+            }catch (Exception e){
+                ;
+            }
+
+        }
+
+        setChecked(item.isChecked,false);
     }
 
     @Override
