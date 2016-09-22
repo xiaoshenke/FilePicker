@@ -140,6 +140,7 @@ public class FilePickerImpl {
                             }
 
                             if (view instanceof DocumentView) {
+                                item.isChecked = mSelectedFiles.containsKey(item.file.toString());
                                 ((DocumentView) view).setChecked(mSelectedFiles.containsKey(item.file.toString()), true);
                             }
                         } else {
@@ -181,6 +182,7 @@ public class FilePickerImpl {
 
                     mSelectedFiles.put(file.toString(), item);
                     if (view instanceof DocumentView) {
+                        item.isChecked = true;
                         ((DocumentView) view).setChecked(true, true);
                     }
 

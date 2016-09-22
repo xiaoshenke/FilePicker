@@ -169,6 +169,7 @@ public class DocumentView extends FrameLayout {
             fileType.setVisibility(INVISIBLE);
         }
 
+        checkbox.setChecked(item.isChecked,false);
     }
 
     private Uri getThumbnailFromFile(File file){

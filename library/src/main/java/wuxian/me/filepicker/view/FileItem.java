@@ -17,4 +17,6 @@ public class FileItem {
     public String subtitle = "";
 
     public File file;                 //real file
+    
+    public boolean isChecked = false;
 }

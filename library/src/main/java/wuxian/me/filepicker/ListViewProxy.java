@@ -129,16 +129,7 @@ public class ListViewProxy implements IListView {
             }
             DocumentView docView = (DocumentView) convertView;
             FileItem item = mFileItems.get(position);
-
             ((DocumentView) convertView).setViewByItem(item);
-
-
-            if (item.file != null) {
-                docView.setChecked(mSelectedFiles.containsKey(item.file.toString()), false);
-                //Todo: fix this bug
-            } else {
-                docView.setChecked(false, false);
-            }
 
             return convertView;
         }
