@@ -1,9 +1,11 @@
 package wuxian.me.filepicker;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -53,9 +55,11 @@ public class FilePickerImpl {
     private HashMap<String, FileItem> mSelectedFiles = new HashMap<>();
     private boolean mInMultiSelectMode = false;
 
-    public FilePickerImpl(IListView listView, IFilePickerListener listener) {
+    private Context mContext;
+    public FilePickerImpl(Context context, IListView listView, IFilePickerListener listener) {
         mListView = listView;
         mListener = listener;
+        mContext = context;
 
         mListView.setItemClickListener(getItemClickListener());
 
@@ -227,7 +231,7 @@ public class FilePickerImpl {
         String state = Environment.getExternalStorageState();
 
         if (state.equals(Environment.MEDIA_MOUNTED) || state.equals(Environment.MEDIA_MOUNTED_READ_ONLY)) {
-            //正常挂载
+            //正常挂载 加一行sdcard条目
             FileItem item = new FileItem();
             if (Environment.isExternalStorageRemovable()) {
                 item.title = "SdCard";
@@ -246,7 +250,7 @@ public class FilePickerImpl {
 
         BufferedReader bufferedReader = null;
         try {
-            bufferedReader = new BufferedReader(new FileReader("/proc/mounts"));
+            bufferedReader = new BufferedReader(new FileReader("/proc/mounts")); //????
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 if (line.contains("vfat") || line.contains("/mnt")) {
@@ -372,17 +376,16 @@ public class FilePickerImpl {
             FileItem item = new FileItem();
             item.title = "..";
 
-        /* //Todo 赋值subtitle
-        if(history.size()>0){
-            HistoryEntry entry = history.get(history.size() - 1);
-            if (entry.dir == null) {
+            if(mHistories.size()>0){
+                HistoryEntry entry = mHistories.get(mHistories.size() - 1);
+                if (entry.dir == null) {
+                    item.subtitle = "Folder";
+                } else {
+                    item.subtitle = entry.dir.toString();
+                }
+            }else{
                 item.subtitle = "Folder";
-            } else {
-                item.subtitle = entry.dir.toString();
             }
-        }else{
-            item.subtitle = "Folder";
-        }*/
 
             item.iconRes = R.mipmap.ic_directory;
             item.file = null;
@@ -421,7 +424,6 @@ public class FilePickerImpl {
         if (mListener != null) {
             mListener.onFilesSelected(files);
         }
-
     }
 
     /**
@@ -463,7 +465,7 @@ public class FilePickerImpl {
                 return State.STATE_DIR_NORMAL;
             }
         } else {
-            if (!file.canRead()) {  //Todo: 文件过大?
+            if (!file.canRead()) {
                 return State.STATE_FILE_ACCESS_ERROR;
             } else {
                 if (file.length() == 0) {
@@ -475,10 +477,7 @@ public class FilePickerImpl {
     }
 
     public void onFileState(State state) {
-        //Todo
-        if (mListener != null) {
-            // mListener.filesSelected(state);
-        }
+        //Toast.makeText(mContext); --> Todo
     }
 
     /**
