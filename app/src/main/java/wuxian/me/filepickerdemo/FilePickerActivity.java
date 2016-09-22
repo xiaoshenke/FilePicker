@@ -47,7 +47,7 @@ public class FilePickerActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mPicker = new FilePickerImpl(new ListViewProxy(getBaseContext(), (ListView) findViewById(R.id.listView)), mListener);
+        mPicker = new FilePickerImpl(this,new ListViewProxy(getBaseContext(), (ListView) findViewById(R.id.listView)), mListener);
         mPicker.listRootFiles();
     }
 }

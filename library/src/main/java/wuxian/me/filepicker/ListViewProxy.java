@@ -96,7 +96,7 @@ public class ListViewProxy implements IListView {
 
         public void setData(List<FileItem> datas) {
             mFileItems.clear();
-            mFileItems.addAll(datas);
+            mFileItems = datas;
         }
 
         @Override
@@ -129,7 +129,7 @@ public class ListViewProxy implements IListView {
             }
             DocumentView docView = (DocumentView) convertView;
             FileItem item = mFileItems.get(position);
-            ((DocumentView) convertView).setViewByItem(item);
+            docView.setViewByItem(item);
 
             return convertView;
         }

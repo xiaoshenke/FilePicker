@@ -34,6 +34,8 @@ import wuxian.me.filepicker.view.Utils;
  */
 
 public class FilePickerImpl {
+    private static final String ERROR_DIR_ACCESS = "directory access error!";
+    private static final String ERROR_FILE_ACCESS = "file access error!";
 
     public enum State {
         STATE_ERROR_UNKNOW,
@@ -108,22 +110,20 @@ public class FilePickerImpl {
                         return;
                     }
 
-                    HistoryEntry he = new HistoryEntry();
-                    //he.scrollItem = listView.getFirstVisiblePosition();
-                    //he.scrollOffset = listView.getChildAt(0).getTop();
-                    he.dir = mCurrentDir;
-                    //he.title = actionBar.getTitle();
-                    mHistories.add(he);
-
                     FilePickerImpl.State state = getFileState(file);
 
                     if (state == FilePickerImpl.State.STATE_DIR_NORMAL) {
+                        HistoryEntry he = new HistoryEntry();
+                        //he.scrollItem = listView.getFirstVisiblePosition();
+                        //he.scrollOffset = listView.getChildAt(0).getTop();
+                        he.dir = mCurrentDir;
+                        mHistories.add(he);
+
                         mCurrentDir = file;
                         listFilesUnder(file);
                     } else {
+                        dealFileErrorState(state);
                     }
-
-                    //listView.setSelection(0);
                 } else {
                     FilePickerImpl.State state = getFileState(file);
                     if (state == FilePickerImpl.State.STATE_FILE_NORMAL) {
@@ -154,6 +154,7 @@ public class FilePickerImpl {
                             filesSelected(files);
                         }
                     } else {
+                        dealFileErrorState(state);
                     }
                 }
 
@@ -184,11 +185,11 @@ public class FilePickerImpl {
                     mInMultiSelectMode = true;
                     enterMuitiSelectMode();
 
-                    mSelectedFiles.put(file.toString(), item);
                     if (view instanceof DocumentView) {
                         item.isChecked = true;
                         ((DocumentView) view).setChecked(true, true);
                     }
+                    mSelectedFiles.put(file.toString(), item);
 
                     List<String> files = new ArrayList<String>();
                     files.addAll(mSelectedFiles.keySet());
@@ -196,8 +197,9 @@ public class FilePickerImpl {
 
                     return true;
                 } else {
+                    dealFileErrorState(state);
+                    return false;
                 }
-                return true;
             }
         };
     }
@@ -393,7 +395,7 @@ public class FilePickerImpl {
 
             return items;
         } else {
-            onFileState(state);
+            dealFileErrorState(state);
             return items;
         }
     }
@@ -459,7 +461,7 @@ public class FilePickerImpl {
                 return State.STATE_ERROR_UNKNOW;
             }
             if (files == null) {
-                onFileState(State.STATE_ERROR_UNKNOW);
+                dealFileErrorState(State.STATE_ERROR_UNKNOW);
                 return State.STATE_ERROR_UNKNOW;
             } else {
                 return State.STATE_DIR_NORMAL;
@@ -476,8 +478,13 @@ public class FilePickerImpl {
         }
     }
 
-    public void onFileState(State state) {
-        //Toast.makeText(mContext); --> Todo
+    public void dealFileErrorState(State state) {
+        if(state == State.STATE_DIR_ACCESS_ERROR){
+            Toast.makeText(mContext,ERROR_DIR_ACCESS,Toast.LENGTH_LONG).show();
+        } else if(state == State.STATE_FILE_ACCESS_ERROR){
+            Toast.makeText(mContext,ERROR_FILE_ACCESS,Toast.LENGTH_LONG).show();
+        }
+
     }
 
     /**
