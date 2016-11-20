@@ -7,17 +7,8 @@
         jumboMode="false"
         optimize="true"
         revision="23.0.2"
-        sha1="cd61de9f3d7fa24c64a25d0f2e1263b8995f52aa">
+        sha1="b600f59390e1dcd8366083bbdc4e205bc092e5a5">
         <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/FilePicker-library-unspecified_37473565dd01f348df30fd5cad3b5ff15cbf2adf.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.2"
-        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.4.0_f9b3287abdc2918897491ed76b5ee2da5f0bbb39.jar" />
     </item>
     <item
         is-multidex="false"
@@ -27,15 +18,6 @@
         revision="23.0.2"
         sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
         <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-23.4.0_62644b5640a6752895eedbe6766aeb4e8e48e339.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/FilePicker/library/unspecified/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="24.0.1"
-        sha1="fcbb9dbaed32c105f401a310b86a3f3a796a2165">
-        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/FilePicker-library-unspecified_37473565dd01f348df30fd5cad3b5ff15cbf2adf.jar" />
     </item>
     <item
         is-multidex="false"
@@ -54,6 +36,24 @@
         revision="23.0.2"
         sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
         <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/support-annotations-23.4.0_ae4687062434d9cef2e4a53b840bf9dc416d13f2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.2"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.4.0_f9b3287abdc2918897491ed76b5ee2da5f0bbb39.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/exploded-aar/FilePicker/library/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="fcbb9dbaed32c105f401a310b86a3f3a796a2165">
+        <dex dex="/Users/wuxian/Desktop/FilePicker/app/build/intermediates/pre-dexed/debug/FilePicker-library-unspecified_37473565dd01f348df30fd5cad3b5ff15cbf2adf.jar" />
     </item>
     <item
         is-multidex="false"

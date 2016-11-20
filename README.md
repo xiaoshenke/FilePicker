@@ -1,12 +1,36 @@
 # FilePicker
 
-FilePicker是一个仿telegram风格文件浏览器，其中某些代码借鉴了telegram。
 
-###使用方法：
-1 在你需要展示一个filepicker(文件浏览器)的activity或fragment中定义一个FilePickerImpl。   
-2 在你的activity对应的xml文件中定义一个listview。  
-3 在onCreate函数中给FilePickerImpl赋值，比如`filePicker = new FilePickerImpl(this,new ListViewProxy(getBaseContext(), (ListView) findViewById(R.id.listView)), mListener);`最后一个参数是IFilePickListener，是选中单个或多个时的回调。              
-4 调用filePicker.listRootFiles();搞定！
+FilePicker is a [Telegram](https://github.com/DrKLO/Telegram) style file brower,it is very easy to use and integrate to your application.Some code copyed from [Telegram](https://github.com/DrKLO/Telegram).
 
+### Usage：
+Step1, declare a FilePickerImpl variable in your Activity/Fragment.   
+Step2, init filePickerImpl in onCreate(),mListener is a IFilePickerLiener callback.               
+                     
+````
+private IFilePickerListener mListener = new IFilePickerListener() {
+        @Override
+        public void onEnterMultiSelectMode() {
+        	//yes you can long press to enter multiselect mode
+        }
+        
+        @Override
+        public void onQuitMultiSelectMode() {}
 
-谢谢 [Telegram](https://github.com/DrKLO/Telegram).
+        @Override
+        public void onFilesSelected(List<String> files) {
+        	//do whatever you want
+        }
+    };
+    
+filePicker = new FilePickerImpl(this,new ListViewProxy(getBaseContext(), (ListView) findViewById(R.id.listView)), mListener);
+````                    
+              
+Step3, call filePicker.listRootFiles();              
+            
+````      
+filePicker.listRootFiles();
+````      
+wola! Now you have successfully integrated filepicker to your application! 
+
+Check the code to know more details !
